@@ -35,7 +35,13 @@ class Departamento extends Sistema{
     }
 
     public function delete($id){
-        
+        $this->db();
+        $sql = "delete from departamento where id_departamento = :id";
+        $st = $this->db->prepare($sql);
+        $st->bindParam(":id", $id, PDO::PARAM_INT);
+        $st->execute();
+        $rc = $st->rowCount();
+        return $rc;
     }
 }
 $web = new Departamento;

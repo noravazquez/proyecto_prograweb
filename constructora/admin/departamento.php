@@ -29,6 +29,15 @@ switch($action){
     break;
     case 'delete':
         $cantidad = $web->delete($id);
+        if ($cantidad) {
+            $web->flash('success', "Registro dado de alta con éxito");
+            $data = $web->get();
+            include('views/departamento/index.php');
+        }else{
+            $web->flash('danger', "Algo fallo");
+            $data = $web->get();
+            include('views/departamento/index.php');
+        }
     break;
     case 'get':
     default:
