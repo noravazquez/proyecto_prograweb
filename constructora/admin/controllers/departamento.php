@@ -1,13 +1,41 @@
 <?php
 require_once("sistema.php");
 class Departamento extends Sistema{
-    public function getAll(){
+    public function get($id=null){
         $this->db();
-        $sql = "select * from departamento";
-        $st = $this->db->prepare($sql);
-        $st->execute();
-        $data = $st->fetchAll();
+        if (is_null($id)) {
+            $sql = "select * from departamento";
+            $st = $this->db->prepare($sql);
+            $st->execute();
+            $data = $st->fetchAll(PDO::FETCH_ASSOC);
+        }else {
+            $sql = "select * from departamento where id_departamento= :id";
+            $st = $this->db->prepare($sql);
+            $st->bindParam(":id", $id, PDO::PARAM_INT);
+            $st->execute();
+            $data = $st->fetchAll(PDO::FETCH_ASSOC);
+            $data = $data[0];
+        }
+        
         return $data;
+    }
+
+    public function new($data){
+        $this->db();
+        $sql = "insert into departamento (departamento) values (:departamento)";
+        $st = $this->db->prepare($sql);
+        $st->bindParam(":departamento", $data['departamento'], PDO::PARAM_STR);
+        $st->execute();
+        $rc = $st->rowCount();
+        return $rc;
+    }
+
+    public function edit($id,$data){
+        
+    }
+
+    public function delete($id){
+        
     }
 }
 $web = new Departamento;
