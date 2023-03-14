@@ -14,11 +14,11 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Catálagos
+            Catálogos
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="departamento.php">Departamento</a></li>
-            <li><a class="dropdown-item" href="proyecto.php">Proyecto</a></li>
+            <li><a class="dropdown-item" href="departamento.php">Departamentos</a></li>
+            <li><a class="dropdown-item" href="proyecto.php">Proyectos</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
