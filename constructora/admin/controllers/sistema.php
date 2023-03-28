@@ -38,5 +38,39 @@
         }
         return $name;
     }
+
+    public function login($correo, $contrasena){
+        if (!is_null($contrasena)) {
+            if (strlen($contrasena)>0) {
+                if ($this->validateEmail($correo)) {
+                    $contrasena = md5($contrasena);
+                    $this->db();
+                    $sql = 'select id_usuario, correo from usuario where correo = :correo and contrasena = :contrasena';
+                    $st = $this->db->prepare($sql);
+                    $st->bindParam(":correo", $correo, PDO::PARAM_STR);
+                    $st->bindParam(":contrasena", $contrasena, PDO::PARAM_STR);
+                    $st->execute();
+                    $data = $st->fetchAll(PDO::FETCH_ASSOC);
+                    $data = $data[0];
+                    print_r($data);
+                    return true;
+                }   
+            }
+        }
+        return false;
+    }
+
+    public function logout(){
+        unset($_SESSION['loggeado']);
+        session_destroy();
+    }
+
+    public function validateEmail($correo){
+        if (filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+            return true;
+        }else{
+            return false;
+        }
+    }
   }
 ?>
