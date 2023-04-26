@@ -164,10 +164,9 @@
         die();
     }
 
-    public function forgot($destinatario)
+    public function forgot($destinatario, $token)
     {
         if ($this->validateEmail($destinatario)) {
-            $token=$this ->generarToken($destinatario);
             require '../vendor/autoload.php';
             $mail = new PHPMailer();
             $mail->isSMTP();
@@ -181,11 +180,22 @@
             $mail->setFrom('19030547@itcelaya.edu.mx', 'Nora Vazquez');
             $mail->addAddress($destinatario, 'Sistema Constructora');
             $mail->Subject = 'Recuperacion de contraseña';
-            $mail->msgHTML('Esto es una prueba de recuperacion ' . $token);
+            $mensaje = "Estimado usuario <br> <a href=\"http://localhost/prograweb1/proyecto_prograweb/constructora/admin/login.php?action=recovery&token=$token&correo=$destinatario\">Presiones aqui para recuperar la contaseña.</a> <br>
+            Atentamente. Constructora";
+            $mensaje = utf8_decode($mensaje);
+            $mail->msgHTML($mensaje);
             if (!$mail->send()) {
-                echo 'Mailer Error: ' . $mail->ErrorInfo;
+                //echo 'Mailer Error: ' . $mail->ErrorInfo;
             } else {
-                echo 'Message sent!';
+                //echo 'Message sent!';
+            }
+            function save_email($mail){
+                $path = '{imap.gmail.com:993/imap/ssl}[Gmail]/Sent Mail';
+                $imapStream = imap_open($path, $mail->Username, $mail->Password);
+                $result = imap_append($imapStream, $path, $mail->getSentMIMEMessage());
+                imap_close($imapStream);
+
+                return $result;
             }
         }
     }
@@ -199,6 +209,66 @@
         $token= md5($token . 'calamardo');
         $token = md5('patricio'). md5($token . $correo);
         return $token;
+    }
+
+    public function loginSend($correo){
+        $rc=0;
+        if($this->validateEmail($correo)){
+            $this->db();
+            $sql = 'select correo from usuario where correo = :correo';
+            $st = $this->db->prepare($sql);
+            $st->bindParam(":correo", $correo, PDO::PARAM_STR);
+            $st->execute();
+            $data = $st->fetchAll(PDO::FETCH_ASSOC);
+            if (isset($data[0])) {
+                $token = $this->generarToken($correo);
+                $sql2 = 'update usuario set token = :token where correo = :correo';
+                $st2 = $this->db->prepare($sql2);
+                $st2->bindParam(":token", $token, PDO::PARAM_STR);
+                $st2->bindParam(":correo", $correo, PDO::PARAM_STR);
+                $st2->execute();
+                $rc = $st2->rowCount();
+                $this->forgot($correo, $token);
+            }
+        }
+        return $rc;
+    }
+
+    function validateToken($correo, $token){
+        if(strlen($token)==64){
+            if($this->validateEmail($correo)){
+                $this->db();
+                $sql = "SELECT correo FROM usuario where correo=:correo and token=:token";
+                $st = $this->db->prepare($sql);
+                $st->bindParam(':correo', $correo, PDO::PARAM_STR);
+                $st->bindParam(':token', $token, PDO::PARAM_STR);
+                $st->execute();
+                $data = $st->fetchAll(PDO::FETCH_ASSOC);
+                if(isset($data[0])){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public function resetPassword($correo, $token, $contrasena){
+        $cantidad=0;
+        if(strlen($token)==64 and strlen($contrasena)>0){
+            if($this->validateEmail($correo)){
+                $contrasena=md5($contrasena);
+                $this->db();
+                $sql = "UPDATE usuario set contrasena=:contrasena,token=null 
+                        where correo=:correo and token=:token";
+                $st = $this->db->prepare($sql);
+                $st->bindParam(':correo', $correo, PDO::PARAM_STR);
+                $st->bindParam(':token', $token, PDO::PARAM_STR);
+                $st->bindParam(':contrasena', $contrasena, PDO::PARAM_STR);
+                $st->execute();
+                $cantidad = $st->rowCount();
+            }
+        }
+        return $cantidad;
     }
   }
   $sistema = new Sistema;

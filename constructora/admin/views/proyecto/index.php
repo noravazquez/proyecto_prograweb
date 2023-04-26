@@ -28,6 +28,7 @@
                 <a class="btn btn-dark" href="proyecto.php?action=task&id=<?php echo $proyecto['id_proyecto']?>">Tareas</a>
                 <a class="btn btn-primary" href="proyecto.php?action=edit&id=<?php echo $proyecto['id_proyecto']?>">Modificar</a>
                 <a class="btn btn-danger" href="proyecto.php?action=delete&id=<?php echo $proyecto['id_proyecto']?>">Eliminar</a>
+                <a class="btn btn-light" href="reporte.php?action=proyecto&id=<?php echo $proyecto['id_proyecto']?>" target="_blank">Imprimir</a>
             </div>
         </td>
     </tr>
