@@ -42,6 +42,7 @@
                 }
                 $st->execute();
                 $rc = $st->rowCount();
+                $this->db->commit();
             } catch (PDOException $exception) {
                 $rc=0;
                 $this->db->rollback();

@@ -14,5 +14,11 @@
       background: #eee;
       }
     </style>
+    <script src="../vendor/tinymce/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+      tinymce.init({
+        selector: '#mytextarea'
+      });
+    </script>
   </head>
   <body>

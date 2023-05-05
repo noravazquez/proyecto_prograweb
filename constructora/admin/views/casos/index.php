@@ -1,0 +1,39 @@
+<h1>Casos de exito</h1>
+<a href="casos.php?action=new" class="btn btn-success">Nuevo</a>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col" class="col-md-2">Caso de exito</th>
+      <th scope="col" class="col-md-2">Descripción</th>
+      <th scope="col" class="col-md-2">Resumen</th>
+      <th scope="col" class="col-md-2">Imagen</th>
+      <th scope="col" class="col-md-2">Activo</th>
+      <th scope="col" class="col-md-2">Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($data as $key => $caso): ?>
+    <tr>
+        <td><?php echo $caso['caso_exito']; ?></td>
+        <td><?php echo $caso['descripcion']; ?></td>
+        <td><?php echo $caso['resumen']; ?></td>
+        <td><?php echo $caso['imagen']; ?></td>
+        <td><?php echo $caso["activo"]; ?></td>
+        <td>
+            <div class="btn-group" role="group" aria-label="Menu Renglon">
+                <a class="btn btn-primary" href="caso.php?action=edit&id=<?php echo $caso['id_caso']?>">Modificar</a>
+                <a class="btn btn-danger" href="caso.php?action=delete&id=<?php echo $caso['id_caso']?>">Eliminar</a>
+            </div>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+  </tbody>
+  <tr>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col">Se encontraron <?php echo sizeof($data); ?> registros.</th>
+    </tr>
+</table>

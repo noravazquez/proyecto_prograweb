@@ -19,6 +19,8 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="departamento.php">Departamentos</a></li>
             <li><a class="dropdown-item" href="proyecto.php">Proyectos</a></li>
+            <li><a class="dropdown-item" href="empleado.php">Empleados</a></li>
+            <li><a class="dropdown-item" href="casos.php">Casos de exito</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>

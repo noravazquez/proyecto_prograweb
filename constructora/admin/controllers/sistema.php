@@ -43,6 +43,14 @@
         return $name;
     }
 
+    public function uploadfoto(){
+        $imagenCodificada = file_get_contents("php://input"); //Obtener la imagen
+        if(strlen($imagenCodificada)){
+            return $imagenCodificada;
+        }
+        return false;
+    }
+
     public function login($correo, $contrasena)
     {
         if (!is_null($contrasena)) {

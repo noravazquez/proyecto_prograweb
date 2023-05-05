@@ -23,7 +23,7 @@
                     include('views/proyecto/index.php');
                 }else {
                     $proyecto->flash('danger', "Algo fallo");
-                    include('views/proyecto/form.php');
+                    include('views/proyecto/index.php');
                 }
             }else {
                 include('views/proyecto/form.php');
