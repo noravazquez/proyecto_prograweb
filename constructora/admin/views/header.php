@@ -17,7 +17,8 @@
     <script src="../vendor/tinymce/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
       tinymce.init({
-        selector: '#mytextarea'
+        selector: '#mytextarea',
+        required: true
       });
     </script>
   </head>

@@ -1,5 +1,5 @@
 <?php
-require_once("controllers/casos.php");
+require_once(__DIR__."/controllers/casos.php");
 include_once('views/header.php');
 include_once('views/menu.php');
 
@@ -23,6 +23,37 @@ switch ($action) {
             include('views/casos/form.php');
         }
     break;
+    case 'edit':
+        if (isset($_POST['enviar'])) {
+            $data = $_POST['data'];
+            $id = $_POST['data']['id_caso'];
+            $cantidad = $caso->edit($id, $data);
+            if ($cantidad) {
+                $caso->flash('success', "Registro actualizado con éxito");
+                $data = $caso->get();
+                include('views/casos/index.php');
+            } else {
+                $caso->flash('warning', "Algo fallo o no hubo cambios");
+                $data = $caso->get();
+                include('views/casos/index.php');
+            }
+        } else {
+            $data = $caso->get($id);
+            include('views/casos/form.php');
+        }
+        break;
+    case 'delete':
+        $cantidad = $caso->delete($id);
+        if ($cantidad) {
+            $caso->flash('success', "Registro eliminado con éxito");
+            $data = $caso->get();
+            include('views/casos/index.php');
+        } else {
+            $caso->flash('danger', "Algo fallo");
+            $data = $caso->get();
+            include('views/casos/index.php');
+        }
+        break;
     case 'get':
     default:
         $data = $caso->get(null);

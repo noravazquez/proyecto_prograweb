@@ -1,5 +1,6 @@
 <?php
     //DATA BASE
+    define("PATH", $_SERVER['DOCUMENT_ROOT'].'/prograweb1/proyecto_prograweb/constructora');
     define("DBDRIVER","mysql");
     define("DBHOST",'127.0.0.1');
     define("DBNAME","constructora");

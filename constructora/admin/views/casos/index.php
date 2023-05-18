@@ -12,17 +12,21 @@
     </tr>
   </thead>
   <tbody>
-    <?php foreach ($data as $key => $caso): ?>
+    <?php foreach ($data as $key => $caso): 
+      if (!file_exists($caso['imagen'])) {
+        $caso['imagen']="images/default-image.png";
+      }  
+    ?>
     <tr>
         <td><?php echo $caso['caso_exito']; ?></td>
         <td><?php echo $caso['descripcion']; ?></td>
         <td><?php echo $caso['resumen']; ?></td>
-        <td><?php echo $caso['imagen']; ?></td>
+        <td><img src="<?php echo $caso['imagen']; ?>" alt="" width="80%"></td>
         <td><?php echo $caso["activo"]; ?></td>
         <td>
             <div class="btn-group" role="group" aria-label="Menu Renglon">
-                <a class="btn btn-primary" href="caso.php?action=edit&id=<?php echo $caso['id_caso']?>">Modificar</a>
-                <a class="btn btn-danger" href="caso.php?action=delete&id=<?php echo $caso['id_caso']?>">Eliminar</a>
+                <a class="btn btn-primary" href="casos.php?action=edit&id=<?php echo $caso['id_caso']?>">Modificar</a>
+                <a class="btn btn-danger" href="casos.php?action=delete&id=<?php echo $caso['id_caso']?>">Eliminar</a>
             </div>
         </td>
     </tr>
