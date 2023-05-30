@@ -1,9 +1,14 @@
 <?php
-    require_once('config.php');
-    $connectionString = DBDRIVER':host='.DBHOST.';dbname='.DBNAME.';port='.DBPORT;
-    $db = new PDO($connectionString, DBUSER, DBPASS);
-    $prep2 = $db->prepare("select * from departamento");
-    $prep2->execute();
-    $result = $prep2->fetchAll();
-    print_r($result);
+declare(strict_types=1);
+require_once(__DIR__."/controllers/factura.php");
+
+use PhpCfdi\CfdiToJson\JsonConverter;
+require '../vendor/autoload.php';
+$contents = file_get_contents('FITVII0000174731.xml');
+$json = JsonConverter::convertToJson($contents);
+echo "<pre>";
+echo $json;
+
+$cantidad = $factura->new($json);
+echo $cantidad;
 ?>
