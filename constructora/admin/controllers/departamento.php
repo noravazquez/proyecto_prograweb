@@ -21,39 +21,75 @@
             return $data;
         }
 
-        public function new ($data)
+        public function new($data)
         {
             $this->db();
-            $sql = "insert into departamento (departamento) values (:departamento)";
-            $st = $this->db->prepare($sql);
-            $st->bindParam(":departamento", $data['departamento'], PDO::PARAM_STR);
-            $st->execute();
-            $rc = $st->rowCount();
-            return $rc;
+
+            try {
+                $this->db->beginTransaction();
+
+                $sql = "INSERT INTO departamento (departamento) VALUES (:departamento)";
+                $st = $this->db->prepare($sql);
+                $st->bindParam(":departamento", $data['departamento'], PDO::PARAM_STR);
+                $st->execute();
+                $rc = $st->rowCount();
+
+                $this->db->commit();
+
+                return $rc;
+            } catch (PDOException $e) {
+                $this->db->rollBack();
+                throw $e;
+            }
         }
 
+
         public function edit($id, $data)
-        {
-            $this->db();
-            $sql = "update departamento set departamento = :departamento where id_departamento = :id";
-            $st = $this->db->prepare($sql);
-            $st->bindParam(":id", $id, PDO::PARAM_INT);
-            $st->bindParam(":departamento", $data['departamento'], PDO::PARAM_STR);
-            $st->execute();
-            $rc = $st->rowCount();
-            return $rc;
-        }
+{
+    $this->db();
+
+    try {
+        $this->db->beginTransaction();
+
+        $sql = "UPDATE departamento SET departamento = :departamento WHERE id_departamento = :id";
+        $st = $this->db->prepare($sql);
+        $st->bindParam(":id", $id, PDO::PARAM_INT);
+        $st->bindParam(":departamento", $data['departamento'], PDO::PARAM_STR);
+        $st->execute();
+        $rc = $st->rowCount();
+
+        $this->db->commit();
+
+        return $rc;
+    } catch (PDOException $e) {
+        $this->db->rollBack();
+        throw $e;
+    }
+}
+
         
         public function delete($id)
-        {
-            $this->db();
-            $sql = "delete from departamento where id_departamento = :id";
-            $st = $this->db->prepare($sql);
-            $st->bindParam(":id", $id, PDO::PARAM_INT);
-            $st->execute();
-            $rc = $st->rowCount();
-            return $rc;
-        }
+{
+    $this->db();
+
+    try {
+        $this->db->beginTransaction();
+
+        $sql = "DELETE FROM departamento WHERE id_departamento = :id";
+        $st = $this->db->prepare($sql);
+        $st->bindParam(":id", $id, PDO::PARAM_INT);
+        $st->execute();
+        $rc = $st->rowCount();
+
+        $this->db->commit();
+
+        return $rc;
+    } catch (PDOException $e) {
+        $this->db->rollBack();
+        throw $e;
+    }
+}
+
 
     }
     $departamento = new Departamento;

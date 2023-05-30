@@ -1,6 +1,62 @@
 {
     "packages": [
         {
+            "name": "phpcfdi/cfdi-to-json",
+            "version": "v0.3.2",
+            "version_normalized": "0.3.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpcfdi/cfdi-to-json.git",
+                "reference": "1c9692382c8adbf0d09661de578374b3681b8224"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpcfdi/cfdi-to-json/zipball/1c9692382c8adbf0d09661de578374b3681b8224",
+                "reference": "1c9692382c8adbf0d09661de578374b3681b8224",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-json": "*",
+                "php": ">=7.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5"
+            },
+            "time": "2022-10-02T02:11:32+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "PhpCfdi\\CfdiToJson\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Carlos C Soto",
+                    "email": "eclipxe13@gmail.com",
+                    "homepage": "https://github.com/phpcfdi/cfdi-to-json"
+                }
+            ],
+            "description": "Convert CFDI to JSON",
+            "homepage": "https://github.com/phpcfdi/cfdi-to-json",
+            "keywords": [
+                "cfdi",
+                "json",
+                "mexico",
+                "sat"
+            ],
+            "support": {
+                "issues": "https://github.com/phpcfdi/cfdi-to-json/issues",
+                "source": "https://github.com/phpcfdi/cfdi-to-json"
+            },
+            "install-path": "../phpcfdi/cfdi-to-json"
+        },
+        {
             "name": "phpmailer/phpmailer",
             "version": "v6.8.0",
             "version_normalized": "6.8.0.0",

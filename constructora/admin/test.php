@@ -1,21 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<?php
+declare(strict_types=1);
+require_once(__DIR__."/controllers/factura.php");
 
-    <script src="../vendor/tinymce/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
-      tinymce.init({
-        selector: '#mytextarea'
-      });
-    </script>
-  </head>
+use PhpCfdi\CfdiToJson\JsonConverter;
+require '../vendor/autoload.php';
+$contents = file_get_contents('FITVII0000174731.xml');
+$json = JsonConverter::convertToJson($contents);
+echo "<pre>";
+echo $json;
 
-  <body>
-    <h1>TinyMCE Quick Start Guide</h1>
-    <form method="post">
-      <textarea id="mytextarea">Hello, World!</textarea>
-    </form>
-  </body>
-</html>
+$cantidad = $factura->new($json);
+echo $cantidad;
+?>

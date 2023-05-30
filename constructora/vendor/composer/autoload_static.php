@@ -13,6 +13,7 @@ class ComposerStaticInit1dfd168399d573d248a44efab9101f8b
         ),
         'P' => 
         array (
+            'PhpCfdi\\CfdiToJson\\' => 19,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
     );
@@ -21,6 +22,10 @@ class ComposerStaticInit1dfd168399d573d248a44efab9101f8b
         'Spipu\\Html2Pdf\\' => 
         array (
             0 => __DIR__ . '/..' . '/spipu/html2pdf/src',
+        ),
+        'PhpCfdi\\CfdiToJson\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpcfdi/cfdi-to-json/src',
         ),
         'PHPMailer\\PHPMailer\\' => 
         array (
